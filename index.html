@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PI 备注用语速查</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1c2b3a; --ink-soft:#4d5f70; --paper:#f3f0e7; --paper-raised:#fbf9f3;
+  --line:#c9c2ae; --stamp:#8a3324; --stamp-soft:#c85a3d; --seal:#1f5f4f;
+  --chip-bg:#e9e3d2; --chip-active:#1c2b3a; --chip-active-text:#f3f0e7;
+  --shadow:0 1px 0 rgba(28,43,58,.08);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#eef1f4; --ink-soft:#aab6c2; --paper:#151b22; --paper-raised:#1d252e;
+    --line:#3a4553; --stamp:#e2846a; --stamp-soft:#c85a3d; --seal:#4fae94;
+    --chip-bg:#232c36; --chip-active:#eef1f4; --chip-active-text:#151b22;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#eef1f4; --ink-soft:#aab6c2; --paper:#151b22; --paper-raised:#1d252e;
+  --line:#3a4553; --stamp:#e2846a; --stamp-soft:#c85a3d; --seal:#4fae94;
+  --chip-bg:#232c36; --chip-active:#eef1f4; --chip-active-text:#151b22;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);}
+*{box-sizing:border-box;}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:'IBM Plex Sans',-apple-system,sans-serif;
+  min-height:100%;
+}
+header{
+  padding:28px 20px 18px; border-bottom:1px solid var(--line);
+  position:sticky; top:0; background:var(--paper); z-index:5;
+  padding-top:calc(28px + env(safe-area-inset-top,0px));
+}
+.eyebrow{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.12em; color:var(--stamp); margin:0 0 6px;}
+h1{font-family:'Spectral',serif; font-weight:700; font-size:clamp(24px,4vw,34px); margin:0 0 4px; line-height:1.15;}
+.sub{color:var(--ink-soft); font-size:14px; margin:0 0 18px; max-width:60ch;}
+
+.searchwrap{position:relative; max-width:640px;}
+#search{
+  width:100%; padding:13px 44px 13px 16px; border:1.5px solid var(--line); border-radius:2px;
+  background:var(--paper-raised); color:var(--ink); font-size:15px; font-family:inherit;
+  outline:none; transition:border-color .15s;
+}
+#search:focus{border-color:var(--seal);}
+.searchwrap svg{position:absolute; right:14px; top:50%; transform:translateY(-50%); pointer-events:none; opacity:.5;}
+
+nav.cats{
+  display:flex; gap:8px; overflow-x:auto; padding:14px 20px; border-bottom:1px solid var(--line);
+  position:sticky; top:calc(env(safe-area-inset-top,0px) + 128px); background:var(--paper); z-index:4;
+  scrollbar-width:thin;
+}
+@media (max-width:640px){ nav.cats{ top:calc(env(safe-area-inset-top,0px) + 150px);} }
+.chip{
+  flex:0 0 auto; padding:7px 14px; border-radius:20px; background:var(--chip-bg); color:var(--ink);
+  font-size:13px; font-weight:500; cursor:pointer; border:1px solid transparent; white-space:nowrap;
+  transition:background .15s,color .15s;
+}
+.chip.active{background:var(--chip-active); color:var(--chip-active-text);}
+.chip .n{opacity:.55; margin-left:4px; font-family:'IBM Plex Mono',monospace; font-size:11px;}
+
+main{padding:22px 20px 60px; max-width:920px; margin:0 auto;}
+.count{font-size:12px; color:var(--ink-soft); font-family:'IBM Plex Mono',monospace; margin:0 0 14px; letter-spacing:.03em;}
+
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:10px;}
+.card{
+  background:var(--paper-raised); border:1px solid var(--line); border-radius:3px; padding:14px 14px 12px;
+  position:relative; box-shadow:var(--shadow);
+}
+.card.core{border-left:3px solid var(--stamp);}
+.card .zh{font-size:15px; font-weight:600; margin:0 0 5px; line-height:1.4; padding-right:30px;}
+.card .en{font-size:13.5px; color:var(--ink-soft); line-height:1.5; margin:0;}
+.card .tag{
+  display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--seal);
+  border:1px solid var(--seal); border-radius:10px; padding:1px 7px; margin-top:9px; letter-spacing:.03em;
+}
+.copybtn{
+  position:absolute; top:10px; right:10px; width:26px; height:26px; border:none; background:transparent;
+  cursor:pointer; color:var(--ink-soft); border-radius:4px; display:flex; align-items:center; justify-content:center;
+  transition:background .15s,color .15s;
+}
+.copybtn:hover{background:var(--chip-bg); color:var(--ink);}
+.copybtn.done{color:var(--seal);}
+
+.empty{text-align:center; padding:60px 20px; color:var(--ink-soft); font-size:14px;}
+
+footer{padding:20px; text-align:center; font-size:11px; color:var(--ink-soft); font-family:'IBM Plex Mono',monospace;}
+
+.toast{
+  position:fixed; left:50%; bottom:calc(24px + env(safe-area-inset-bottom,0px)); transform:translateX(-50%) translateY(20px);
+  background:var(--ink); color:var(--paper); padding:9px 18px; border-radius:20px; font-size:13px;
+  opacity:0; pointer-events:none; transition:opacity .2s,transform .2s; z-index:20; white-space:nowrap;
+}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<header>
+  <p class="eyebrow">PI REMARKS · 形式发票备注速查</p>
+  <h1>PI 备注用语库</h1>
+  <p class="sub">中英对照 · 点击分类筛选 · 点卡片一键复制英文。星标为最常用的核心 20 条。</p>
+  <div class="searchwrap">
+    <input id="search" type="text" placeholder="搜索中文或英文关键词，如「质保」或 warranty">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+  </div>
+</header>
+
+<nav class="cats" id="cats"></nav>
+
+<main>
+  <p class="count" id="count"></p>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" style="display:none;">没有匹配的用语，换个关键词试试</div>
+</main>
+
+<footer>根据 PI 备注用语大全整理 · 43 条固定用语 + 20 条核心用语</footer>
+<div class="toast" id="toast">已复制</div>
+
+<script>
+const DATA = [
+{c:"版本",zh:"高品质替代版",en:"High-Quality Replacement",core:1},
+{c:"版本",zh:"替代版",en:"Replacement Version",core:1},
+{c:"版本",zh:"标准版本",en:"Standard Version"},
+{c:"版本",zh:"原装版本",en:"Genuine Original",core:1},
+{c:"版本",zh:"原厂版本",en:"Original Manufacturer",core:1},
+{c:"版本",zh:"售后替换版",en:"Aftermarket Replacement",core:1},
+{c:"版本",zh:"高品质售后版",en:"Premium Aftermarket"},
+{c:"版本",zh:"原装同规格替代版",en:"Original-Spec Replacement"},
+{c:"版本",zh:"工厂版本",en:"Factory Version"},
+{c:"版本",zh:"中性版本",en:"Neutral Version"},
+
+{c:"兼容",zh:"兼容最新版软件",en:"Latest Software Compatible",core:1},
+{c:"兼容",zh:"支持最新版软件",en:"Supports Latest Software"},
+{c:"兼容",zh:"直接替换",en:"Direct Replacement",core:1},
+{c:"兼容",zh:"即插即用",en:"Plug-and-Play",core:1},
+{c:"兼容",zh:"无需修改",en:"No Modification Required"},
+{c:"兼容",zh:"接口兼容",en:"Connector Compatible"},
+{c:"兼容",zh:"尺寸一致",en:"Same Dimensions"},
+{c:"兼容",zh:"功能兼容",en:"Function Compatible"},
+{c:"兼容",zh:"原装规格",en:"Original Specifications"},
+{c:"兼容",zh:"指定型号替代",en:"Compatible Replacement"},
+
+{c:"品质",zh:"高品质",en:"High Quality"},
+{c:"品质",zh:"高端版本",en:"Premium Version"},
+{c:"品质",zh:"工业级品质",en:"Industrial Grade"},
+{c:"品质",zh:"A级元件",en:"A-Grade Components"},
+{c:"品质",zh:"高品质元件",en:"High-Quality Components"},
+{c:"品质",zh:"100%出厂测试",en:"100% Factory Tested",core:1},
+{c:"品质",zh:"出货前测试",en:"Tested Before Shipment"},
+{c:"品质",zh:"工厂测试合格",en:"Factory Tested"},
+{c:"品质",zh:"严格质量控制",en:"Strict QC"},
+{c:"品质",zh:"稳定性能",en:"Stable Performance"},
+{c:"品质",zh:"12个月质保",en:"12-Month Warranty",core:1},
+
+{c:"包装定制",zh:"标准包装",en:"Standard Packaging",core:1},
+{c:"包装定制",zh:"出口包装",en:"Export Packaging"},
+{c:"包装定制",zh:"高级包装",en:"Premium Packaging",core:1},
+{c:"包装定制",zh:"中性包装",en:"Neutral Packaging",core:1},
+{c:"包装定制",zh:"定制包装",en:"Customized Packaging"},
+{c:"包装定制",zh:"定制Logo",en:"Customized Logo",core:1},
+{c:"包装定制",zh:"客户Logo",en:"Customer Logo"},
+{c:"包装定制",zh:"定制标签",en:"Customized Label"},
+{c:"包装定制",zh:"定制产品",en:"Customized Product"},
+{c:"包装定制",zh:"按要求生产",en:"Made to Order"},
+
+{c:"传感器规格",zh:"长度可定制",en:"Custom Length Available"},
+{c:"传感器规格",zh:"规格可定制",en:"Custom Specifications Available",core:1},
+{c:"传感器规格",zh:"参数可定制",en:"Custom Parameters Available"},
+{c:"传感器规格",zh:"按客户要求生产",en:"Made to Customer Requirements"},
+{c:"传感器规格",zh:"特殊定制",en:"Special Customization"},
+{c:"传感器规格",zh:"无现货",en:"Made to Order"},
+
+{c:"价格条款",zh:"01｜EXW",en:"Price Term: EXW.",core:1},
+{c:"价格条款",zh:"02｜EXW，不含任何运费",en:"The quoted price is based on EXW terms and excludes all transportation costs."},
+{c:"价格条款",zh:"03｜国际运费另计",en:"International shipping costs are not included.",core:1},
+{c:"价格条款",zh:"04｜中国境内运费另计",en:"Domestic transportation costs are not included."},
+{c:"价格条款",zh:"05｜运费待确认",en:"Shipping cost will be confirmed after order confirmation."},
+{c:"价格条款",zh:"06｜根据实际包装计算",en:"Final shipping cost will be based on actual package details."},
+{c:"价格条款",zh:"07｜报价有效期",en:"Quotation validity: 15 days."},
+{c:"价格条款",zh:"08｜价格可能调整",en:"Prices are subject to change after the validity period."},
+
+{c:"付款条款",zh:"09｜30% + 70%",en:"30% deposit, 70% balance before shipment."},
+{c:"付款条款",zh:"10｜全款付款",en:"Full payment before shipment.",core:1},
+{c:"付款条款",zh:"11｜手续费",en:"Bank and payment processing fees are not included."},
+{c:"付款条款",zh:"12｜付款后开始备货",en:"Order preparation will start after payment confirmation."},
+
+{c:"生产交期",zh:"13｜现货",en:"In Stock."},
+{c:"生产交期",zh:"14｜需要生产",en:"Made to Order."},
+{c:"生产交期",zh:"15｜生产周期",en:"Lead Time: 7–15 working days.",core:1},
+{c:"生产交期",zh:"16｜付款后计算交期",en:"Lead time starts after payment confirmation."},
+{c:"生产交期",zh:"17｜交期不含运输",en:"Lead time excludes transportation time."},
+{c:"生产交期",zh:"18｜部分产品需要定制",en:"Some items require customized production."},
+{c:"生产交期",zh:"19｜定制产品不能取消",en:"Customized products cannot be cancelled after production starts."},
+
+{c:"产品确认",zh:"20｜请确认型号",en:"Please confirm the model and part number before ordering."},
+{c:"产品确认",zh:"21｜确认电压",en:"Please confirm the required voltage before ordering."},
+{c:"产品确认",zh:"22｜客户负责确认型号",en:"The buyer is responsible for confirming the correct model and specifications."},
+{c:"产品确认",zh:"23｜图片为实物",en:"All product images are actual photos."},
+{c:"产品确认",zh:"24｜图片仅供参考",en:"Product images are for reference only."},
+{c:"产品确认",zh:"25｜实际产品可能有细微差异",en:"Minor differences in appearance or packaging may apply."},
+
+{c:"包装运输",zh:"26｜标准出口包装",en:"Standard export packaging included."},
+{c:"包装运输",zh:"27｜高级包装",en:"Premium packaging included."},
+{c:"包装运输",zh:"28｜木箱",en:"Wooden case packaging is available at additional cost."},
+{c:"包装运输",zh:"29｜最终重量",en:"Final weight and dimensions will be confirmed after packing."},
+{c:"包装运输",zh:"30｜指定货代",en:"Goods can be delivered to the buyer's nominated forwarder in China."},
+
+{c:"清关税费",zh:"31｜目的国税费不含",en:"Import duties and destination charges are not included.",core:1},
+{c:"清关税费",zh:"32｜清关费用不含",en:"Customs clearance charges are not included."},
+{c:"清关税费",zh:"33｜DDP",en:"DDP shipping is available upon request."},
+{c:"清关税费",zh:"34｜目的港费用",en:"Destination charges are not included unless otherwise stated."},
+
+{c:"质保",zh:"35｜12个月质保",en:"12-Month Warranty."},
+{c:"质保",zh:"36｜质保期",en:"Warranty period: 12 months from shipment date."},
+{c:"质保",zh:"37｜人为损坏不保",en:"Warranty does not cover damage caused by improper use or installation."},
+{c:"质保",zh:"38｜未经授权改装不保",en:"Warranty does not cover unauthorized modification."},
+
+{c:"定制Logo",zh:"39｜Logo定制",en:"Customized Logo Available."},
+{c:"定制Logo",zh:"40｜客户提供Logo",en:"Customer logo artwork is required before production."},
+{c:"定制Logo",zh:"41｜定制产品",en:"Customized Product."},
+{c:"定制Logo",zh:"42｜确认后生产",en:"Production will start after artwork confirmation."},
+{c:"定制Logo",zh:"43｜定制产品不可退",en:"Customized products are non-returnable once production starts."}
+];
+
+const CATS = ["核心20","版本","兼容","品质","包装定制","传感器规格","价格条款","付款条款","生产交期","产品确认","包装运输","清关税费","质保","定制Logo"];
+
+let activeCat = "核心20";
+let query = "";
+
+const catsEl = document.getElementById('cats');
+const gridEl = document.getElementById('grid');
+const emptyEl = document.getElementById('empty');
+const countEl = document.getElementById('count');
+
+function counts(){
+  const m = {};
+  CATS.forEach(c=>m[c]=0);
+  DATA.forEach(d=>{ m[d.c] = (m[d.c]||0)+1; if(d.core) m["核心20"]++; });
+  return m;
+}
+const CT = counts();
+
+function renderCats(){
+  catsEl.innerHTML = CATS.map(c=>
+    `<button class="chip${c===activeCat?' active':''}" data-cat="${c}">${c==="核心20"?"★ "+c:c}<span class="n">${CT[c]}</span></button>`
+  ).join('');
+  catsEl.querySelectorAll('.chip').forEach(el=>{
+    el.addEventListener('click', ()=>{ activeCat = el.dataset.cat; renderCats(); renderGrid(); });
+  });
+}
+
+function matches(item){
+  if(activeCat === "核心20" && !item.core) return false;
+  if(activeCat !== "核心20" && item.c !== activeCat) return false;
+  if(query){
+    const q = query.toLowerCase();
+    if(!item.zh.toLowerCase().includes(q) && !item.en.toLowerCase().includes(q)) return false;
+  }
+  return true;
+}
+
+function escapeHtml(s){
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function renderGrid(){
+  const items = DATA.filter(matches);
+  countEl.textContent = `共 ${items.length} 条`;
+  emptyEl.style.display = items.length ? 'none' : 'block';
+  gridEl.innerHTML = items.map((item, i)=>{
+    const idx = DATA.indexOf(item);
+    return `<div class="card${item.core?' core':''}">
+      <button class="copybtn" data-idx="${idx}" title="复制英文" aria-label="复制英文">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="1.5"/><path d="M5 15H4a1 1 0 01-1-1V4a1 1 0 011-1h10a1 1 0 011 1v1"/></svg>
+      </button>
+      <p class="zh">${escapeHtml(item.zh)}</p>
+      <p class="en">${escapeHtml(item.en)}</p>
+      ${activeCat==="核心20" ? '' : (item.core ? '<span class="tag">核心常用</span>' : '')}
+    </div>`;
+  }).join('');
+  gridEl.querySelectorAll('.copybtn').forEach(btn=>{
+    btn.addEventListener('click', ()=>copyItem(btn));
+  });
+}
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(()=>t.classList.remove('show'), 1400);
+}
+
+async function copyItem(btn){
+  const item = DATA[+btn.dataset.idx];
+  const text = item.en;
+  try{
+    await navigator.clipboard.writeText(text);
+  }catch(e){
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); }catch(e2){}
+    document.body.removeChild(ta);
+  }
+  btn.classList.add('done');
+  showToast('已复制：' + (text.length>30? text.slice(0,30)+'…' : text));
+  setTimeout(()=>btn.classList.remove('done'), 1000);
+}
+
+document.getElementById('search').addEventListener('input', (e)=>{
+  query = e.target.value.trim();
+  renderGrid();
+});
+
+renderCats();
+renderGrid();
+</script>
+</body>
+</html>
